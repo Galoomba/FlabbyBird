@@ -16,6 +16,7 @@ public class FlabbyBirdDemo extends ApplicationAdapter {
 	private GameStateManger gsm;
 	private SpriteBatch batch;
 
+	//Create the screen
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
