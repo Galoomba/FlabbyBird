@@ -10,7 +10,7 @@ import java.util.Stack;
  */
 
 public class Bird {
-    private static final int GRAVITY=-10;
+    private static final int GRAVITY=-15;
 
     private Vector3 position;
     private Vector3 velocity;
@@ -35,5 +35,9 @@ public class Bird {
         velocity.scl(dt);
         position.add(0,velocity.y,0);
         velocity.scl(1/dt);
+    }
+
+    public void jump(){
+        velocity.y=250;
     }
 }
