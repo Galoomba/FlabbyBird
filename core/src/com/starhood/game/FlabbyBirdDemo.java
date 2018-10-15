@@ -22,12 +22,12 @@ public class FlabbyBirdDemo extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		gsm=new GameStateManger();
 		Gdx.gl.glClearColor(1, 0, 0, 1);
+		gsm.push(new MenuState(gsm));
 	}
 
 	@Override
 	public void render () {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		gsm.push(new MenuState(gsm));
 		gsm.update(Gdx.graphics.getDeltaTime());
 		gsm.render(batch);
        //render note

@@ -37,4 +37,10 @@ public class MenuState extends State {
         sb.draw(playButton,(FlabbyBirdDemo.WIDTH/2)-(playButton.getWidth()/2),FlabbyBirdDemo.HEIGHT/2);
         sb.end();
     }
+
+    @Override
+    public void dispose() {
+        playButton.dispose();
+        background.dispose();
+    }
 }
