@@ -13,9 +13,11 @@ import com.starhood.game.sprites.Bird;
 public class PlayState extends State {
 
     private Bird bird;
+    private Texture bg;
 
     public PlayState(GameStateManger gsm) {
         super(gsm);
+        bg=new Texture("background.png");
         bird=new Bird(50,200);
         cam.setToOrtho(false, FlabbyBirdDemo.WIDTH/2,FlabbyBirdDemo.HEIGHT/2);
 
@@ -37,6 +39,7 @@ public class PlayState extends State {
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
+        sb.draw(bg,cam.position.x -(cam.viewportWidth/2),0);
         sb.draw(bird.getBird(), bird.getPosition().x,bird.getPosition().y);
         sb.end();
     }
