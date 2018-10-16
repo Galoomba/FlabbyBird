@@ -43,7 +43,9 @@ public class PlayState extends State {
     public void update(float dt) {
         handleInput();
         bird.update(dt);
+        tubesReposition();
     }
+
 
     @Override
     public void render(SpriteBatch sb) {
@@ -61,5 +63,12 @@ public class PlayState extends State {
     @Override
     public void dispose() {
 
+    }
+
+    private void tubesReposition(){
+        for (Tube tube:tubes){
+            if (cam.position.x -(cam.viewportWidth/2)>tube.getPosTopTube().x+tube.getTopTube().getWidth())
+                tube.reposition(tube.getPosTopTube().x+((Tube.TUBE_WIDTH+TUBE_SPACING)*TUBE_COUNT));
+        }
     }
 }
