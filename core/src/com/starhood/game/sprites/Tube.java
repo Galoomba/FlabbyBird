@@ -13,6 +13,7 @@ public class Tube {
     private static final int FLUCTUATION=130;
     private static final int TUBE_GAP=100;
     private static final int LOWEST_OPENING=120;
+    public static final int TUBE_WIDTH =52 ;
 
     private Texture topTube,botTube;
     private Vector2 posTopTube,posBotTube;
