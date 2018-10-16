@@ -11,6 +11,7 @@ import java.util.Stack;
 
 public class Bird {
     private static final int GRAVITY=-15;
+    private static final int MOVEMENT=100;
 
     private Vector3 position;
     private Vector3 velocity;
@@ -31,10 +32,14 @@ public class Bird {
     }
 
     public void update(float dt){
+        movement(dt);
+    }
+
+    private void movement(float dt) {
         if (position.y>0)
             velocity.add(0,GRAVITY,0);
         velocity.scl(dt);
-        position.add(0,velocity.y,0);
+        position.add(MOVEMENT*dt,velocity.y,0);
         if(position.y<0)
             position.y=0;
         velocity.scl(1/dt);
