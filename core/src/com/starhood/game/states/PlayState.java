@@ -17,10 +17,10 @@ public class PlayState extends State {
     private Tube tube;
     private Texture bg;
 
-    public PlayState(GameStateManger gsm) {
+    public PlayState(GameStateManger gsm,String birdType) {
         super(gsm);
         bg=new Texture("background.png");
-        bird=new Bird(50,200);
+        bird=new Bird(50,200,birdType);
         tube=new Tube(100);
         cam.setToOrtho(false, FlabbyBirdDemo.WIDTH/2,FlabbyBirdDemo.HEIGHT/2);
 

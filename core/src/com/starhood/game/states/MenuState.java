@@ -3,6 +3,8 @@ package com.starhood.game.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 import com.starhood.game.FlabbyBirdDemo;
 
 /**
@@ -23,8 +25,16 @@ public class MenuState extends State {
 
     @Override
     public void handleInput() {
+
         if(Gdx.input.justTouched()){
-            gsm.set(new PlayState(gsm));
+            Vector3 tmp=new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
+            Rectangle textureBounds=new Rectangle(150,300,playButton.getWidth(),playButton.getHeight());
+            if(textureBounds.contains(tmp.x,tmp.y))
+            {
+                gsm.set(new PlayState(gsm,"bird.png"));
+            }
+            else
+                gsm.set(new PlayState(gsm,"bird10.png"));
             dispose();
         }
     }

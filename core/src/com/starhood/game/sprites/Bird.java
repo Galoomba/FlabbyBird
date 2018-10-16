@@ -24,8 +24,8 @@ public class Bird {
         return bird;
     }
 
-    public Bird(int x, int y){
-        bird=new Texture("bird.png");
+    public Bird(int x, int y,String birdType){
+        bird=new Texture(birdType);
         position =new Vector3(x,y,0);
         velocity= new Vector3(0,0,0);
     }
