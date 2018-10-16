@@ -2,6 +2,7 @@ package com.starhood.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.starhood.game.FlabbyBirdDemo;
@@ -17,6 +18,7 @@ public class PlayState extends State {
     private static final int TUBE_SPACING=125;
     private static final int TUBE_COUNT=4;
 
+    private BitmapFont score;
     private Bird bird;
     private Array<Tube> tubes;
     private Texture bg;
@@ -26,12 +28,12 @@ public class PlayState extends State {
         bg=new Texture("background.png");
         bird=new Bird(50,200,birdType);
         cam.setToOrtho(false, FlabbyBirdDemo.WIDTH/2,FlabbyBirdDemo.HEIGHT/2);
+        score=new BitmapFont();
 
         tubes=new Array<Tube>();
         for (int i =1 ;i<=TUBE_COUNT;i++)
-        {
             tubes.add(new Tube(i *(TUBE_SPACING+Tube.TUBE_WIDTH)));
-        }
+
     }
 
     @Override
@@ -60,6 +62,9 @@ public class PlayState extends State {
             sb.draw(tube.getTopTube(), tube.getPosTopTube().x, tube.getPosTopTube().y);
             sb.draw(tube.getBotTube(), tube.getPosBotTube().x, tube.getPosBotTube().y);
         }
+
+        score.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+        score.draw(sb, Score.getScore(), (cam.position.x +(cam.viewportWidth/2))- (score.getSpaceWidth()+15), cam.viewportHeight-(score.getSpaceWidth()*2));
         sb.end();
     }
 

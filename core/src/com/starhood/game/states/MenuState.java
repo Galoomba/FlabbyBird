@@ -2,10 +2,12 @@ package com.starhood.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.starhood.game.FlabbyBirdDemo;
 import com.starhood.game.sprites.PlayButton;
 
@@ -16,7 +18,6 @@ import com.starhood.game.sprites.PlayButton;
 public class MenuState extends State {
 
     private Texture background;
-
     private PlayButton playButton;
 
 
@@ -39,8 +40,6 @@ public class MenuState extends State {
             }
             else
                 gsm.set(new PlayState(gsm,"bird10.png"));
-
-
         }
     }
 
