@@ -3,7 +3,11 @@ package com.starhood.game.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.starhood.game.FlabbyBirdDemo;
+import com.starhood.game.sprites.PlayButton;
 
 /**
  * Created by starhood on 02/10/18.
@@ -12,20 +16,31 @@ import com.starhood.game.FlabbyBirdDemo;
 public class MenuState extends State {
 
     private Texture background;
-    private Texture playButton;
+
+    private PlayButton playButton;
 
 
     public MenuState(GameStateManger gsm) {
         super(gsm);
         background=new Texture("background.png");
-        playButton=new Texture("playbtn.png");
+        playButton=new PlayButton(50,150);
+        cam.setToOrtho(false, FlabbyBirdDemo.WIDTH/2,FlabbyBirdDemo.HEIGHT/2);
     }
 
     @Override
     public void handleInput() {
+
         if(Gdx.input.justTouched()){
-            gsm.set(new PlayState(gsm));
-            dispose();
+            Vector3 tmp=new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
+            cam.unproject(tmp);
+            if(playButton.getBounds().contains(tmp.x,tmp.y))
+            {
+                gsm.set(new PlayState(gsm,"bird.png"));
+            }
+            else
+                gsm.set(new PlayState(gsm,"bird10.png"));
+
+
         }
     }
 
@@ -36,9 +51,10 @@ public class MenuState extends State {
 
     @Override
     public void render(SpriteBatch sb) {
+        sb.setProjectionMatrix(cam.combined);
         sb.begin();
-        sb.draw(background,0,0, FlabbyBirdDemo.WIDTH,FlabbyBirdDemo.HEIGHT);
-        sb.draw(playButton,(FlabbyBirdDemo.WIDTH/2)-(playButton.getWidth()/2),FlabbyBirdDemo.HEIGHT/2);
+        sb.draw(background,0,0);
+        sb.draw(playButton.getPlayButton(),playButton.getPosition().x,playButton.getPosition().y);
         sb.end();
     }
 

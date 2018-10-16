@@ -3,8 +3,10 @@ package com.starhood.game.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 import com.starhood.game.FlabbyBirdDemo;
 import com.starhood.game.sprites.Bird;
+import com.starhood.game.sprites.Score;
 import com.starhood.game.sprites.Tube;
 
 /**
@@ -12,18 +14,24 @@ import com.starhood.game.sprites.Tube;
  */
 
 public class PlayState extends State {
+    private static final int TUBE_SPACING=125;
+    private static final int TUBE_COUNT=4;
 
     private Bird bird;
-    private Tube tube;
+    private Array<Tube> tubes;
     private Texture bg;
 
-    public PlayState(GameStateManger gsm) {
+    public PlayState(GameStateManger gsm,String birdType) {
         super(gsm);
         bg=new Texture("background.png");
-        bird=new Bird(50,200);
-        tube=new Tube(100);
+        bird=new Bird(50,200,birdType);
         cam.setToOrtho(false, FlabbyBirdDemo.WIDTH/2,FlabbyBirdDemo.HEIGHT/2);
 
+        tubes=new Array<Tube>();
+        for (int i =1 ;i<=TUBE_COUNT;i++)
+        {
+            tubes.add(new Tube(i *(TUBE_SPACING+Tube.TUBE_WIDTH)));
+        }
     }
 
     @Override
@@ -36,7 +44,11 @@ public class PlayState extends State {
     public void update(float dt) {
         handleInput();
         bird.update(dt);
+        cam.position.x=bird.getPosition().x+80;
+        tubesReposition();
+        cam.update();
     }
+
 
     @Override
     public void render(SpriteBatch sb) {
@@ -44,13 +56,37 @@ public class PlayState extends State {
         sb.begin();
         sb.draw(bg,cam.position.x -(cam.viewportWidth/2),0);
         sb.draw(bird.getBird(), bird.getPosition().x,bird.getPosition().y);
-        sb.draw(tube.getTopTube(),tube.getPosTopTube().x,tube.getPosTopTube().y);
-        sb.draw(tube.getBotTube(),tube.getPosBotTube().x,tube.getPosBotTube().y);
+        for (Tube tube : tubes) {
+            sb.draw(tube.getTopTube(), tube.getPosTopTube().x, tube.getPosTopTube().y);
+            sb.draw(tube.getBotTube(), tube.getPosBotTube().x, tube.getPosBotTube().y);
+        }
         sb.end();
     }
 
     @Override
     public void dispose() {
+        bg.dispose();
+        bird.dispose();
+        for (Tube tube :tubes){
+            tube.dispose();
+        }
+    }
 
+    private void tubesReposition(){
+        for (int i=0 ;i<tubes.size;i++){
+            Tube tube=tubes.get(i);
+            if (cam.position.x -(cam.viewportWidth/2)>tube.getPosTopTube().x+tube.getTopTube().getWidth())
+            {
+                tube.reposition(tube.getPosTopTube().x+((Tube.TUBE_WIDTH+TUBE_SPACING)*TUBE_COUNT));
+                Score.addScore();
+                Score.printScore();
+            }
+
+            if (tube.collides(bird.getBounds()))
+            {
+                gsm.set(new MenuState(gsm));
+                Score.clearScore();
+            }
+        }
     }
 }
