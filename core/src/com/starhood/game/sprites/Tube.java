@@ -64,4 +64,10 @@ public class Tube {
     {
         return player.overlaps(boundsBot)||player.overlaps(boundsTop);
     }
+
+    public void dispose()
+    {
+        topTube.dispose();
+        botTube.dispose();
+    }
 }

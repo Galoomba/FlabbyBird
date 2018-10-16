@@ -38,7 +38,7 @@ public class MenuState extends State {
             }
             else
                 gsm.set(new PlayState(gsm,"bird10.png"));
-            dispose();
+
         }
     }
 
