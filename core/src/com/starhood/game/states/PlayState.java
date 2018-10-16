@@ -43,7 +43,9 @@ public class PlayState extends State {
     public void update(float dt) {
         handleInput();
         bird.update(dt);
+        cam.position.x=bird.getPosition().x+80;
         tubesReposition();
+        cam.update();
     }
 
 
