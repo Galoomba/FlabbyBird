@@ -7,8 +7,8 @@ package com.starhood.game.sprites;
 public class Score {
     private static int score =0;
 
-    public static int getScore() {
-        return score;
+    public static String getScore() {
+        return Integer.toString(score);
     }
 
     public static void addScore() {
