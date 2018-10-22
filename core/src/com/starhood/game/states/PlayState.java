@@ -25,10 +25,10 @@ public class PlayState extends State {
     private Array<Tube> tubes;
     private Texture bg;
 
-    public PlayState(GameStateManger gsm,String birdType) {
+    public PlayState(GameStateManger gsm,String birdType,String flap) {
         super(gsm);
         bg=new Texture("background.png");
-        bird=new Bird(50,200,birdType);
+        bird=new Bird(50,200,birdType,flap);
         ground=new Ground(cam.position.x - cam.viewportWidth/2,-50);
         cam.setToOrtho(false, FlabbyBirdDemo.WIDTH/2,FlabbyBirdDemo.HEIGHT/2);
         score=new BitmapFont();

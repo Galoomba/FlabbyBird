@@ -36,10 +36,10 @@ public class MenuState extends State {
             cam.unproject(tmp);
             if(playButton.getBounds().contains(tmp.x,tmp.y))
             {
-                gsm.set(new PlayState(gsm,"bird.png"));
+                gsm.set(new PlayState(gsm,"bird.png","sfx_hen.ogg"));
             }
             else
-                gsm.set(new PlayState(gsm,"bird10.png"));
+                gsm.set(new PlayState(gsm,"bird10.png","sfx_wing.ogg"));
         }
     }
 
