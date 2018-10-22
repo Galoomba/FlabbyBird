@@ -1,5 +1,7 @@
 package com.starhood.game.sprites;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -17,6 +19,7 @@ public class Bird {
     private Vector3 position;
     private Vector3 velocity;
     private Texture bird;
+    private Sound flap;
 
     private Rectangle bounds;
 
@@ -28,11 +31,12 @@ public class Bird {
         return bird;
     }
 
-    public Bird(int x, int y,String birdType){
+    public Bird(int x, int y,String birdType, String flap){
         bird=new Texture(birdType);
         position =new Vector3(x,y,0);
         velocity= new Vector3(0,0,0);
         bounds=new Rectangle(x,y,bird.getWidth(),bird.getHeight());
+        this.flap= Gdx.audio.newSound(Gdx.files.internal(flap));
     }
 
     public void update(float dt){
@@ -53,6 +57,7 @@ public class Bird {
 
     public void jump(){
         velocity.y=250;
+        flap.play(0.4f);
     }
 
     public Rectangle getBounds(){
@@ -61,5 +66,6 @@ public class Bird {
 
     public void dispose(){
         bird.dispose();
+        flap.dispose();
     }
 }
