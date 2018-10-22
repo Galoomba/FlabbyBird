@@ -15,10 +15,10 @@ public class PlayButton {
     private Texture playButton;
     private Rectangle bounds;
 
-    public PlayButton(float x, float y){
-        playButton=new Texture("playbtn.png");
+    public PlayButton(float x, float y,String path){
+        playButton=new Texture(path);
         position=new Vector2(x,y);
-        bounds=new Rectangle(x,y,playButton.getWidth(),playButton.getHeight());
+        bounds=new Rectangle(x,y,50,30);
     }
 
     public Texture getPlayButton() {
